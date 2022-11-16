@@ -1,7 +1,9 @@
-const express = require('express')
-const app = express()
-const PORT = 4000
+var express = require('express');
+var app = express();
+var PORT = 4000
+var cors = require("cors");
 var sql = require("mssql");
+
 var config = {
     user: "Merlin",
     password: "Jirasak5409",
@@ -9,10 +11,12 @@ var config = {
     database: "jirasakdb",
   };
 
-app.listen(PORT, ()=>{
+  app.use(cors());
+
+app.listen(PORT, function(){
     console.log('HI PORT 4000')
 })
-app.get("/test",jsonParser, function (req, res) {
+app.get("/", function (req, res,next) {
     // connect to your database
     sql.connect(config, function (err) {
       if (err) console.log(err);
@@ -31,7 +35,7 @@ app.get("/test",jsonParser, function (req, res) {
     });
   });
 
-app.get('/',(req,res,next)=>{
+app.get('/d',function(req,res,next){
     res.send("Runninggggggggggg.....................")
 })
 
